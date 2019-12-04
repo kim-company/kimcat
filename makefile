@@ -4,7 +4,8 @@
 
 kimcat: cmd/main.go *.go
 	go build -o bin/kimcat cmd/main.go
-
+clean:
+	rm -rf bin/
 test:
 	go test ./...
 format:
