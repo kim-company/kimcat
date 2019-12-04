@@ -2,8 +2,8 @@
 #
 # SPDX-License-Identifier: MIT
 
-kimcat: main.go
-	go build -o bin/kimcat main.go
+kimcat: cmd/main.go *.go
+	go build -o bin/kimcat cmd/main.go
 
 test:
 	go test ./...
