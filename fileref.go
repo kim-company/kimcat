@@ -8,6 +8,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"net/http"
 	"net/url"
 	"os"
 )
@@ -47,6 +48,13 @@ func (f *FileRef) Open(ctx context.Context) {
 			return
 		}
 		f.r = obj
+	case "http", "https":
+		resp, err := http.Get(f.url.String())
+		if err != nil {
+			f.err = fmt.Errorf("unable to download file: %w", err)
+			return
+		}
+		f.r = resp.Body
 	default:
 		f.err = fmt.Errorf("unsupported url scheme %v", f.url.Scheme)
 	}
