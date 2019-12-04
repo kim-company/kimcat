@@ -5,10 +5,10 @@
 package kimcat
 
 import (
-	"net/url"
-	"io"
-	"strings"
 	"fmt"
+	"io"
+	"net/url"
+	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
@@ -17,12 +17,12 @@ import (
 )
 
 type s3URL struct {
-	raw *url.URL
-	Region string
+	raw       *url.URL
+	Region    string
 	AccessKey string
-	Secret string
-	Bkt string
-	Key string
+	Secret    string
+	Bkt       string
+	Key       string
 }
 
 func s3Parse(uri *url.URL) (*s3URL, error) {
@@ -48,17 +48,17 @@ func s3Parse(uri *url.URL) (*s3URL, error) {
 	bkt, key := uri.Host, strings.Trim(uri.Path, "/")
 
 	return &s3URL{
-		raw: uri,
-		Region: region,
+		raw:       uri,
+		Region:    region,
 		AccessKey: accessKey,
-		Secret: secret,
-		Bkt: bkt,
-		Key: key,
+		Secret:    secret,
+		Bkt:       bkt,
+		Key:       key,
 	}, nil
 }
 
 type s3client struct {
-	 *s3.S3
+	*s3.S3
 }
 
 func s3New(uri *s3URL) *s3client {
