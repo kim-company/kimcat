@@ -35,6 +35,18 @@ func (f *FileRef) Open(ctx context.Context) {
 			return
 		}
 		f.r = r
+	case "s3":
+		s3url, err := s3Parse(f.url)
+		if err != nil {
+			f.err = fmt.Errorf("unable to parse s3 url: %w", err)
+			return
+		}
+		obj, err := s3New(s3url).GetObj(s3url.Bkt, s3url.Key)
+		if err != nil {
+			f.err = fmt.Errorf("unable to download s3 obj: %w", err)
+			return
+		}
+		f.r = obj
 	default:
 		f.err = fmt.Errorf("unsupported url scheme %v", f.url.Scheme)
 	}
