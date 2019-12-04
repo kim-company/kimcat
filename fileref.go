@@ -65,7 +65,6 @@ func (f *FileRef) Read(p []byte) (int, error) {
 		return 0, f.err
 	}
 	if f.r == nil {
-
 		return 0, fmt.Errorf("file has to be openened first")
 	}
 	return f.r.Read(p)
