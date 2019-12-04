@@ -39,7 +39,7 @@ func main() {
 
 	urls := os.Args[1:]
 	acc := make([]*kimcat.FileRef, len(urls))
-	for i, v := range os.Args[1:] {
+	for i, v := range urls {
 		r, err := kimcat.NewFileRef(v)
 		if err != nil {
 			errorf("unable to handle arg #%d: %v", i, err)
@@ -56,6 +56,7 @@ func main() {
 	defer cancel()
 	kimcat.MultiOpen(ctx, 8, acc...)
 
+	// Read from all sources together.
 	rc := kimcat.NewMultiReadCloser(acc...)
 	defer func() {
 		if err := rc.Close(); err != nil {
