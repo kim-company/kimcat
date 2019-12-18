@@ -8,3 +8,7 @@ Source: https://keepinmind.info
 # Files: src/*
 # Copyright: $YEAR $NAME <$CONTACT>
 # License: ...
+
+Files: README.md
+Copyright: 2019 KIM KeepInMind GmbH <daniel.morandini@keepinmind.info>
+License: MIT
